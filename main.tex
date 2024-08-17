@@ -122,52 +122,47 @@ RAiD functions by linking organizations, people, inputs, and outputs to a projec
 The RAiD system offers several key features that make it particularly suitable for implementing the CARE Principles:
 
 \begin{enumerate}
-  \item Persistent Identification: RAiD provides a stable, long-term identifier for research projects, ensuring that project metadata remains accessible and linked even as research outputs evolve over time.
-  \item Comprehensive Metadata: RAiD stores, updates, shares, and links project metadata information for the global research community, allowing for the inclusion of CARE-related information and Local Contexts Notices or Labels.
-  \item Dynamic Updates: The system can handle changes in Indigenous consent or cultural context throughout the project lifecycle, maintaining an up-to-date record of permissions and cultural considerations.
-  \item Interoperability: RAiD is designed to work alongside other persistent identifiers and research information systems, facilitating the integration of CARE Principles into existing research infrastructure.
+\item Persistent Identification: RAiD provides a stable, long-term identifier for research projects, ensuring that project metadata remains accessible and linked even as research outputs evolve over time.
+\item Comprehensive Metadata: RAiD stores, updates, shares, and links project metadata information for the global research community, allowing for the inclusion of CARE-related information and Local Contexts Notices or Labels.
+\item Dynamic Updates: The system can handle changes in Indigenous consent or cultural context throughout the project lifecycle, maintaining an up-to-date record of permissions and cultural considerations.
+\item Interoperability: RAiD is designed to work alongside other persistent identifiers and research information systems, facilitating the integration of CARE Principles into existing research infrastructure.
 \end{enumerate}
+
+Additionally, RAiD offers broader benefits to the research ecosystem. It provides comprehensive project tracking by recording organizations contributing to funding and collection, enabling funders to track impact and return on investment more effectively. The system enhances administrative efficiency by providing a single source of truth for project metadata, reducing administrative burden and minimizing errors that can arise from disparate metadata sources. RAiD also supports FAIR data principles by providing clear provenance for research outputs through project-level metadata, including a comprehensive history of changes. Finally, the system is designed for flexible integration, allowing it to be embedded in existing infrastructure, services, and products used to conduct and manage research, facilitating seamless adoption across different disciplines and contexts.
 
 }
-
-%----------------------------------------------------------------------------------------
-% RAID IMPLEMENTATION
-%----------------------------------------------------------------------------------------
-\color{ARDCPurple}
-\section*{\LARGE RAiD Implementation for CARE Principles}
-\color{DarkGrey}
-\large{
-The implementation of RAiD for recording and tracking CARE Principles offers several significant benefits:
-
-\begin{enumerate}
-  \item Declaration of Local Contexts: RAiD can be used to declare and link to relevant Local Contexts Notices or Labels, ensuring that cultural context and Indigenous rights are clearly associated with the research project and its outputs.
-  \item Documentation Linkage: The system can link to documents describing sampling and field data acquisition circumstances, providing crucial context for the ethical collection and use of Indigenous data.
-  \item Consistency in Downstream Use: By maintaining persistent links between the project identifier and its various outputs (e.g., subsamples, datasets, and publications), RAiD ensures that CARE-related information remains associated with research data throughout its lifecycle.
-  \item Consent Management: The dynamic nature of RAiD allows for the recording and tracking of changes in Indigenous consent over time, providing a clear history of permissions and any modifications to data usage agreements.
-\end{enumerate}
 
 % ---------------------------
 % RAiD Diagram
 % ---------------------------
+
+% Add vertical space before the diagram
+\vspace{2cm}
+
+% Center the diagram using TikZ
+\begin{center}
 \begin{tikzpicture}[
-    node distance = 0.7cm and 3cm,
-    box/.style = {rectangle, minimum width=3cm, minimum height=0.8cm, text centered, font=\sffamily\small},
-    main/.style = {box, fill=DarkGrey, text=white, font=\sffamily\bfseries},
-    core/.style = {box, fill=ARDCBlue, text=white},
-    extended/.style = {box, fill=ARDCPink, text=white},
-    local/.style = {box, fill=ARDCPurple, text=white},
+    node distance = 0.7cm and 4cm,
+    box/.style = {rectangle, minimum width=3.2cm, minimum height=0.9cm, text centered, font=\sffamily\small, rounded corners=3pt},
+    main/.style = {box, fill=DarkGrey, text=white, font=\sffamily\bfseries\large},
+    core/.style = {box, fill=ARDCBlue, text=white, font=\sffamily\bfseries},
+    extended/.style = {box, fill=ARDCPink, text=white, font=\sffamily\bfseries},
+    local/.style = {box, fill=ARDCPurple, text=white, font=\sffamily\bfseries},
     item/.style = {box, fill=ARDCYellow, text=DarkGrey},
-    arrow/.style = {->, >=stealth, thick, DarkGrey},
-    group/.style = {draw=DarkGrey, dashed, inner sep=10pt, rounded corners}
+    group/.style = {draw=DarkGrey, dashed, inner sep=12pt, rounded corners=5pt},
+    tk/.style = {draw=DarkGrey, line width=1pt, text=DarkGrey, font=\bfseries}
 ]
 
+% Use a coordinate system to center the diagram
+\path coordinate (origin);
+
 % Main node
-\node[main] (raid) {RAiD Metadata};
+\node[main] (raid) at (origin) {RAiD Metadata};
 
 % Three main categories
 \node[core, below=of raid] (core) {Core};
-\node[extended, below left=2cm and 4cm of raid] (extended) {Extended};
-\node[local, below right=2cm and 4cm of raid] (local) {Local};
+\node[extended, below left=2.5cm and 5cm of raid] (extended) {Extended};
+\node[local, below right=2.5cm and 5cm of raid] (local) {Local};
 
 % Core Metadata items
 \node[item, below=of core] (c1) {Identifier};
@@ -175,7 +170,7 @@ The implementation of RAiD for recording and tracking CARE Principles offers sev
 \node[item, below=of c2] (c3) {Description};
 \node[item, below=of c3] (c4) {Dates};
 \node[item, below=of c4] (c5) {Contributors};
-\node[item, below=of c5] (c6) {Organizations};
+\node[item, below=of c5] (c6) {Organisations};
 \node[item, below=of c6] (c7) {Related RAiDs};
 
 % Extended Metadata items
@@ -183,9 +178,8 @@ The implementation of RAiD for recording and tracking CARE Principles offers sev
 \node[item, below=of e1] (e2) {Alternate Identifiers};
 \node[item, below=of e2] (e3) {Access};
 \node[item, below=of e3] (e4) {Spatial Coverage};
-\node[item, below=of e4] (e5) {TK Labels};
-\node[item, below=of e5] (e6) {TK Notices};
-
+\node[item, below=of e4, tk] (e5) {TK Labels};
+\node[item, below=of e5, tk] (e6) {TK Notices};
 % Local Metadata item with forced hyphenation
 \node[item, text width=4cm, below=of local] (l1) {\hspace{0pt}Cus\-tom\-is\-able by Reg\-is\-tra\-tion Agency};
 
@@ -195,36 +189,41 @@ The implementation of RAiD for recording and tracking CARE Principles offers sev
     \node[fit=(extended) (e1) (e2) (e3) (e4) (e5) (e6), group] {};
     \node[fit=(local) (l1), group] {};
 \end{scope}
+\end{tikzpicture}
+\end{center}
 
 % Caption
-\node[below=0.1cm of c7, text width=24cm, align=center] {\captionof{figure}{RAiD linking project components}};
+\begin{center}
+\captionof{figure}{RAiD linking project components (Local Contexts TK Labels and Notices highlighted}
+\end{center}
 
-\end{tikzpicture}
 
 % ---------------------------
 % End RAiD Diagram
 % ---------------------------
 
 
-Additionally, RAiD offers broader benefits to the research ecosystem:
 
-\begin{enumerate}
-  \item Comprehensive Project Tracking: RAiD records organizations contributing to funding and collection, enabling funders to track impact and return on investment more effectively.
-  \item Administrative Efficiency: By providing a single source of truth for project metadata, RAiD reduces administrative burden and minimises errors that can arise from disparate metadata sources.
-  \item Enhanced Interoperability: RAiD supports FAIR data principles by providing clear provenance for research outputs through project-level metadata, including a comprehensive history of changes made to that metadata.
-  \item Flexible Integration: The system is designed to be embedded in existing infrastructure, services, and products used to conduct and manage research, allowing for seamless adoption across different disciplines and contexts.
-\end{enumerate}
-
-}
 
 %----------------------------------------------------------------------------------------
-% CONCLUSION
+% RAID IMPLEMENTATION
 %----------------------------------------------------------------------------------------
-\color{ARDCPink}
-\section*{\LARGE Conclusion}
+\color{ARDCPurple}
+\section*{\LARGE RAiD Implementation for CARE Principles}
 \color{DarkGrey}
 \large{
 The implementation of Research Activity Identifiers (RAiDs) offers a promising solution for improving the recording and tracking of CARE Principles and Local Contexts information in research involving Indigenous data. By providing a persistent, comprehensive, and dynamic system for managing project metadata, RAiD addresses many of the current challenges in ensuring ethical and responsible research practices.
+
+The implementation of RAiD offers several significant benefits:
+
+\begin{enumerate}
+\item Declaration of Traditional Knowledge or Biocultural Notices and Labels: RAiD can be used to declare and link to relevant Local Contexts Notices or Labels, ensuring that cultural context and Indigenous rights are clearly associated with the research project and its outputs.
+\item Documentation Linkage: The system can link to documents describing sampling and field data acquisition circumstances, providing crucial context for the ethical collection and use of Indigenous data.
+\item Consistency in Downstream Use: By maintaining persistent links between the project identifier and its various outputs (e.g., subsamples, datasets, and publications), RAiD ensures that CARE-related information remains associated with research data throughout its lifecycle.
+\item Consent Management: The dynamic nature of RAiD allows for the recording and tracking of changes in Indigenous consent over time, providing a clear history of permissions and any modifications to data usage agreements.
+\item CARE-related Metadata: RAiD allows for the inclusion of CARE-related information and Local Contexts Notices or Labels in its comprehensive metadata.
+\item Indigenous Consent Tracking: The system can handle changes in Indigenous consent or cultural context throughout the project lifecycle, maintaining an up-to-date record of permissions and cultural considerations.
+\end{enumerate}
 
 The adoption of RAiD can significantly enhance the ability of researchers and institutions to respect Indigenous Data Sovereignty, maintain proper consent records, and ensure that cultural context remains associated with data throughout its lifecycle. This approach not only benefits Indigenous communities by protecting their rights and interests but also supports the broader research community by improving data provenance, facilitating collaboration, and enhancing the overall quality and ethical standards of research.
 
