@@ -30,6 +30,8 @@
 \usepackage{wrapfig}
 \usepackage{indentfirst}
 \usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, backgrounds}
 
 % Define ARDC colors
 \definecolor{ARDCBlue}{RGB}{0,159,218}
@@ -81,47 +83,39 @@
 \begin{multicols}{2}
 
 %----------------------------------------------------------------------------------------
-% INTRODUCTION
+% BACKGROUND
 %----------------------------------------------------------------------------------------
-
 \color{ARDCPink}
-\section*{\LARGE Introduction}
+\section*{\LARGE Background}
 \color{DarkGrey}
 \large{
 Indigenous Data Sovereignty is a critical concept that recognizes the right of Indigenous peoples to control data from and about their communities, peoples, lands, and resources. Historically, research involving Indigenous data has often lacked proper consent recording mechanisms, leading to ethical concerns and potential misuse of sensitive information.
 
-The CARE Principles for Indigenous Data Governance were developed to address these issues and promote ethical practices in research.
+The CARE Principles for Indigenous Data Governance were developed to address these issues and promote ethical practices in research. CARE stands for \underline{C}ollective benefit, \underline{A}uthority to control, \underline{R}esponsibility, and \underline{E}thics. These principles ensure that Indigenous peoples have the right to access, control, and make decisions about data that pertains to their communities and cultural knowledge.
+
+\par
+\begin{wrapfigure}{r}{0.45\columnwidth}
+\vspace{-2cm}  % Adjust this value as needed
+\includegraphics[width=0.43\columnwidth]{figures/CARE-principles.png}
+\caption{CARE Principles for Indigenous Data Governance (adapted from Carroll et al. 2020, figure 2)}
+\vspace{2cm}  % Increase this value to add more space after the figure
+\end{wrapfigure}
+
+Local Contexts Notices and Labels have been developed as a system to add cultural context to data and collections. This system allows for the clear communication of Indigenous rights and interests associated with specific data sets or cultural artifacts. Notices are informational text that provide context about the Indigenous provenance and cultural significance of data or collections. They can be applied by institutions or researchers to indicate their recognition of Indigenous rights and interests. Labels, on the other hand, are visual markers created and applied by Indigenous communities themselves. These Labels express community-specific protocols for accessing and using cultural heritage materials. Both Notices and Labels work together to enhance understanding of proper data use, promote ethical research practices, and respect Indigenous cultural protocols throughout the research lifecycle.
+
+However, there are still limitations in specifying how to capture and carry forward this contextual information throughout the entire research lifecycle, from project inception to long-term data preservation and reuse. Current research data management practices often struggle to maintain the connection between Indigenous consent, cultural context, and the data itself as it moves through various stages of research and potentially gets reused in different contexts. This challenge highlights the need for a more robust and persistent method of recording and tracking CARE-related metadata throughout the research process.
 }
 
 %----------------------------------------------------------------------------------------
-% BACKGROUND
-%----------------------------------------------------------------------------------------
-\color{ARDCYellow}
-\section*{\LARGE Background}
-\color{DarkGrey}
-\large{
-The CARE Principles stand for Collective benefit, Authority to control, Responsibility, and Ethics. These principles ensure that Indigenous peoples have the right to access, control, and make decisions about data that pertains to their communities and cultural knowledge.
-
-Local Contexts Notices and Labels have been developed as a system for Indigenous communities to add cultural context to data and collections. This system allows for the clear communication of Indigenous rights and interests associated with specific data sets or cultural artifacts.
-
-However, there are still limitations in specifying how to capture and carry forward this contextual information throughout the entire research lifecycle, from project inception to long-term data preservation and reuse.
-
-Current research data management practices often struggle to maintain the connection between Indigenous consent, cultural context, and the data itself as it moves through various stages of research and potentially gets reused in different contexts. This challenge highlights the need for a more robust and persistent method of recording and tracking CARE-related metadata throughout the research process.
-}
-
-%----------------------------------------------------------------------------------------
-% PROPOSED SOLUTION
+% RAiD
 %----------------------------------------------------------------------------------------
 \color{ARDCBlue}
-\section*{\LARGE Proposed Solution: Research Activity Identifier (RAiD)}
+\section*{\LARGE The Research Activity Identifier (RAiD)}
 \color{DarkGrey}
 \large{
 The Research Activity Identifier (RAiD) is proposed as a solution to address the challenges of persistently recording CARE Principles and Local Contexts information. RAiD is a persistent identifier and system for research projects and activities, governed by ISO Standard 23527:2022. The Australian Research Data Commons (ARDC) serves as the global Registration Authority and lead developer of the RAiD system.
 
 RAiD functions by linking organizations, people, inputs, and outputs to a project, providing a comprehensive and dynamic record of key project information. This information is often not found in any other single source, making RAiD a valuable tool for research project management and data governance.
-
-\includegraphics[width=0.7\columnwidth]{raid_diagram.png}
-\captionof{figure}{RAiD linking project components}
 
 The RAiD system offers several key features that make it particularly suitable for implementing the CARE Principles:
 
@@ -149,13 +143,66 @@ The implementation of RAiD for recording and tracking CARE Principles offers sev
   \item Consistency in Downstream Use: By maintaining persistent links between the project identifier and its various outputs (e.g., subsamples, datasets, and publications), RAiD ensures that CARE-related information remains associated with research data throughout its lifecycle.
   \item Consent Management: The dynamic nature of RAiD allows for the recording and tracking of changes in Indigenous consent over time, providing a clear history of permissions and any modifications to data usage agreements.
 \end{enumerate}
-    
 
-\includegraphics[width=0.4\columnwidth]{care_principles.png}
-\captionof{figure}{CARE Principles}
+% ---------------------------
+% RAiD Diagram
+% ---------------------------
+\begin{tikzpicture}[
+    node distance = 0.7cm and 3cm,
+    box/.style = {rectangle, minimum width=3cm, minimum height=0.8cm, text centered, font=\sffamily\small},
+    main/.style = {box, fill=DarkGrey, text=white, font=\sffamily\bfseries},
+    core/.style = {box, fill=ARDCBlue, text=white},
+    extended/.style = {box, fill=ARDCPink, text=white},
+    local/.style = {box, fill=ARDCPurple, text=white},
+    item/.style = {box, fill=ARDCYellow, text=DarkGrey},
+    arrow/.style = {->, >=stealth, thick, DarkGrey},
+    group/.style = {draw=DarkGrey, dashed, inner sep=10pt, rounded corners}
+]
 
-\includegraphics[width=0.4\columnwidth]{local_contexts_labels.png}
-\captionof{figure}{Local Contexts Labels}
+% Main node
+\node[main] (raid) {RAiD Metadata};
+
+% Three main categories
+\node[core, below=of raid] (core) {Core};
+\node[extended, below left=2cm and 4cm of raid] (extended) {Extended};
+\node[local, below right=2cm and 4cm of raid] (local) {Local};
+
+% Core Metadata items
+\node[item, below=of core] (c1) {Identifier};
+\node[item, below=of c1] (c2) {Title};
+\node[item, below=of c2] (c3) {Description};
+\node[item, below=of c3] (c4) {Dates};
+\node[item, below=of c4] (c5) {Contributors};
+\node[item, below=of c5] (c6) {Organizations};
+\node[item, below=of c6] (c7) {Related RAiDs};
+
+% Extended Metadata items
+\node[item, below=of extended] (e1) {Subjects};
+\node[item, below=of e1] (e2) {Alternate Identifiers};
+\node[item, below=of e2] (e3) {Access};
+\node[item, below=of e3] (e4) {Spatial Coverage};
+\node[item, below=of e4] (e5) {TK Labels};
+\node[item, below=of e5] (e6) {TK Notices};
+
+% Local Metadata item with forced hyphenation
+\node[item, text width=4cm, below=of local] (l1) {\hspace{0pt}Cus\-tom\-is\-able by Reg\-is\-tra\-tion Agency};
+
+% Group boxes using fit and backgrounds
+\begin{scope}[on background layer]
+    \node[fit=(core) (c1) (c2) (c3) (c4) (c5) (c6) (c7), group] {};
+    \node[fit=(extended) (e1) (e2) (e3) (e4) (e5) (e6), group] {};
+    \node[fit=(local) (l1), group] {};
+\end{scope}
+
+% Caption
+\node[below=0.1cm of c7, text width=24cm, align=center] {\captionof{figure}{RAiD linking project components}};
+
+\end{tikzpicture}
+
+% ---------------------------
+% End RAiD Diagram
+% ---------------------------
+
 
 Additionally, RAiD offers broader benefits to the research ecosystem:
 
@@ -185,12 +232,32 @@ As the research landscape continues to evolve, tools like RAiD will play a cruci
 \vfill
 
 %----------------------------------------------------------------------------------------
+% REFERENCES
+%----------------------------------------------------------------------------------------
+\color{ARDCBlue}
+\section*{\LARGE References}
+\color{DarkGrey}
+\large{
+\begin{enumerate}
+\item Carroll, S. R., Garba, I., Figueroa-Rodríguez, O. L., Holbrook, J., Lovett, R., Materechera, S., Parsons, M., Raseroka, K., Rodriguez-Lonebear, D., Rowe, R., Sara, R., Walker, J. D., Anderson, J., \& Hudson, M. (2020). The CARE Principles for Indigenous Data Governance. Data Science Journal, 19(1), 43. https://doi.org/10.5334/dsj-2020-043
+\end{enumerate}
+}
+
+\vfill
+
+%----------------------------------------------------------------------------------------
 % LICENSE
 %----------------------------------------------------------------------------------------
 \begin{center}
-\includegraphics[height=0.5cm]{cc-by.png}
-This work is licensed under a Creative Commons Attribution 4.0 International License.
+\begin{tabular}{cc}
+\raisebox{-0.2\height}{\includegraphics[height=1cm]{cc-by.png}} &
+\raisebox{0.2ex}{\small This work is licensed under a Creative Commons Attribution 4.0 International License.}
+\end{tabular}
 \end{center}
 
+
+
+
 \end{multicols}
+
 \end{document}
