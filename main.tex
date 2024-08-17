@@ -32,7 +32,8 @@
 \usepackage{enumitem}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows, positioning, fit, backgrounds}
-\usepackage{natbib}
+\usepackage[style=authoryear,backend=biber,heading=bibintoc]{biblatex}
+\addbibresource{references.bib}
 
 % Define ARDC colors
 \definecolor{ARDCBlue}{RGB}{0,159,218}
@@ -52,7 +53,6 @@
 % Increase first-line indent
 \setlength{\parindent}{2em}
 
-\bibliographystyle{plainnat}
 \begin{document}
 
 %----------------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ The CARE Principles for Indigenous Data Governance were developed to address the
 \begin{wrapfigure}{r}{0.45\columnwidth}
 \vspace{-1cm}  % Adjust this value as needed
 \includegraphics[width=0.43\columnwidth]{figures/CARE-principles.png}
-\caption{CARE Principles for Indigenous Data Governance (adapted from \citet{Carroll2020}, figure 2)}
+\caption{CARE Principles for Indigenous Data Governance (adapted from \textcite{Carroll2020}, figure 2)}
 \vspace{1cm}  % Increase this value to add more space after the figure
 \end{wrapfigure}
 
@@ -135,35 +135,30 @@ Additionally, RAiD offers broader benefits to the research ecosystem. It provide
 % ---------------------------
 % RAiD Diagram
 % ---------------------------
-
 % Add vertical space before the diagram
 \vspace{2cm}
-
 % Center the diagram using TikZ
 \begin{center}
 \begin{tikzpicture}[
     node distance = 0.7cm and 4cm,
     box/.style = {rectangle, minimum width=3.2cm, minimum height=0.9cm, text centered, font=\sffamily\small, rounded corners=3pt},
-    main/.style = {box, fill=DarkGrey, text=white, font=\sffamily\bfseries\large},
-    core/.style = {box, fill=ARDCBlue, text=white, font=\sffamily\bfseries},
-    extended/.style = {box, fill=ARDCPink, text=white, font=\sffamily\bfseries},
-    local/.style = {box, fill=ARDCPurple, text=white, font=\sffamily\bfseries},
+    main/.style = {box, fill=DarkGrey, text=white, font=\sffamily\bfseries\Large},
+    category/.style = {box, text=white, font=\sffamily\bfseries\large},
+    core/.style = {category, fill=ARDCBlue},
+    extended/.style = {category, fill=ARDCPink},
+    local/.style = {category, fill=ARDCPurple},
     item/.style = {box, fill=ARDCYellow, text=DarkGrey},
     group/.style = {draw=DarkGrey, dashed, inner sep=12pt, rounded corners=5pt},
-    tk/.style = {draw=DarkGrey, line width=1pt, text=DarkGrey, font=\bfseries}
+    tk/.style = {draw=DarkGrey, line width=1pt, text=DarkGrey}
 ]
-
 % Use a coordinate system to center the diagram
 \path coordinate (origin);
-
 % Main node
 \node[main] (raid) at (origin) {RAiD Metadata};
-
 % Three main categories
-\node[core, below=of raid] (core) {Core};
-\node[extended, below left=2.5cm and 5cm of raid] (extended) {Extended};
-\node[local, below right=2.5cm and 5cm of raid] (local) {Local};
-
+\node[core, below=1.5cm of raid] (core) {Core};
+\node[extended, below left=3cm and 5cm of raid] (extended) {Extended};
+\node[local, below right=3cm and 5cm of raid] (local) {Local};
 % Core Metadata items
 \node[item, below=of core] (c1) {Identifier};
 \node[item, below=of c1] (c2) {Title};
@@ -172,7 +167,6 @@ Additionally, RAiD offers broader benefits to the research ecosystem. It provide
 \node[item, below=of c4] (c5) {Contributors};
 \node[item, below=of c5] (c6) {Organisations};
 \node[item, below=of c6] (c7) {Related RAiDs};
-
 % Extended Metadata items
 \node[item, below=of extended] (e1) {Subjects};
 \node[item, below=of e1] (e2) {Alternate Identifiers};
@@ -190,14 +184,12 @@ Additionally, RAiD offers broader benefits to the research ecosystem. It provide
     \node[fit=(local) (l1), group] {};
 \end{scope}
 \end{tikzpicture}
-\end{center}
 
 % Caption
-\begin{center}
-\captionof{figure}{RAiD linking project components (Local Contexts TK Labels and Notices highlighted}
+\parbox{0.8\columnwidth}{
+    \captionof{figure}{High-level RAiD metadata elements with Local Contexts TK Labels and Notices highlighted \parencite{RAiDMetadata}.}
+}
 \end{center}
-
-
 % ---------------------------
 % End RAiD Diagram
 % ---------------------------
@@ -239,8 +231,9 @@ As the research landscape continues to evolve, tools like RAiD will play a cruci
 \section*{\LARGE References}
 \color{DarkGrey}
 \large{
-\bibliography{references}
+\printbibliography[heading=none]
 }
+
 
 \vfill
 
